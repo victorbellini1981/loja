@@ -27,7 +27,8 @@ namespace Loja.API.Models
         public Produto(string nome, int estoque, double valor) 
         {
             Id = null;
-            Nome = nome;   
+            Nome = nome; 
+            Estoque = estoque;  
             Valor = valor;
             DataCadastro = DataAtualizacao = DateTime.Now;
         }
