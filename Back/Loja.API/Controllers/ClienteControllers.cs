@@ -41,5 +41,58 @@ namespace Loja.API.Controllers
             
             return Ok(clientes);
         }
+
+        public IActionResult GetLiberados() {
+            var clienteSelecionado = clientes.Where(
+                cli => cli.Liberado == true);
+            return Ok(clienteSelecionado);
+        }
+
+        public IActionResult GetBloqueados() {
+            var clienteSelecionado = clientes.Where(
+                cli => cli.Liberado == false);
+            return Ok(clienteSelecionado);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id) {
+            var clienteSelecionado = clientes.Where(
+                cli => cli.Id == id);
+            return Ok(clienteSelecionado);
+        }
+
+        [HttpGet("{credito}")]
+        public IActionResult GetMaiorOuIgual(double credito) {
+            var clienteSelecionado = clientes.Where(
+                cli => cli.Credito >= credito);
+            return Ok(clienteSelecionado);
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Cliente novoCliente) {
+            clientes.Add(novoCliente);
+            return Created("", novoCliente);
+        }
+
+        [HttpPut("{id}")]
+        public string Put(int id) {
+            return $"Exemplo de Put com id = {id}";
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id){
+            // Verifica se existe um objeto com o ID igual ao ID passado como parâmetro
+            if (clientes.Where(p => p.Id == id).Count() > 0){
+                // Então foi encontrado um cliente com o ID passado como parâmetro
+                // Selecionar o cliente que deverá ser removido
+                Cliente clienteSelecionado = clientes.Where(
+                    p => p.Id == id).ToList()[0];
+                // Remove o cliente da lista
+                     clientes.Remove(clienteSelecionado);
+                // Retorna um resultado para o cliente
+                return NoContent();
+            }
+            return NotFound();
+        }
     }
 }
