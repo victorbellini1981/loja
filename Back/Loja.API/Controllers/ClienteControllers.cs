@@ -8,10 +8,13 @@ namespace Loja.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClienteControllers : ControllerBase
+    
+
+       public class ClienteControllers : ControllerBase
     {
         public static List<Cliente> clientes = new List<Cliente>();
 
+       
         public ClienteControllers() {
             if(clientes.Count <= 0) {
                 Cliente cliente = new Cliente() {
@@ -41,13 +44,15 @@ namespace Loja.API.Controllers
             
             return Ok(clientes);
         }
-
+        
+        [HttpGet("/liberados")]
         public IActionResult GetLiberados() {
             var clienteSelecionado = clientes.Where(
                 cli => cli.Liberado == true);
             return Ok(clienteSelecionado);
         }
-
+        
+        [HttpGet("/bloqueados")]
         public IActionResult GetBloqueados() {
             var clienteSelecionado = clientes.Where(
                 cli => cli.Liberado == false);
@@ -61,11 +66,11 @@ namespace Loja.API.Controllers
             return Ok(clienteSelecionado);
         }
 
-        [HttpGet("{credito}")]
+        [HttpGet("/credito{credito}")]
         public IActionResult GetMaiorOuIgual(double credito) {
-            var clienteSelecionado = clientes.Where(
+            var clientesSelecionados = clientes.Where(
                 cli => cli.Credito >= credito);
-            return Ok(clienteSelecionado);
+            return Ok(clientesSelecionados);
         }
 
         [HttpPost]
@@ -82,11 +87,11 @@ namespace Loja.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id){
             // Verifica se existe um objeto com o ID igual ao ID passado como parâmetro
-            if (clientes.Where(p => p.Id == id).Count() > 0){
+            if (clientes.Where(cli => cli.Id == id).Count() > 0){
                 // Então foi encontrado um cliente com o ID passado como parâmetro
                 // Selecionar o cliente que deverá ser removido
                 Cliente clienteSelecionado = clientes.Where(
-                    p => p.Id == id).ToList()[0];
+                    cli => cli.Id == id).ToList()[0];
                 // Remove o cliente da lista
                      clientes.Remove(clienteSelecionado);
                 // Retorna um resultado para o cliente
