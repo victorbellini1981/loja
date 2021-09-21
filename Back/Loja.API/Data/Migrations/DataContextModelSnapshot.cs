@@ -42,6 +42,23 @@ namespace Loja.API.Data.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("Loja.API.Models.Marcas", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Marcas");
+                });
+
             modelBuilder.Entity("Loja.API.Models.Produto", b =>
                 {
                     b.Property<int?>("Id")

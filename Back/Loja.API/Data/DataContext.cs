@@ -10,5 +10,6 @@ namespace Loja.API.Data
 
        public DbSet<Produto> Produtos { get; set; }
        public DbSet<Cliente> Clientes { get; set; }
+       public DbSet<Marcas> Marcas { get; set; }
     }
 }
