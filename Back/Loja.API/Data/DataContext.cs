@@ -9,5 +9,6 @@ namespace Loja.API.Data
        base(options) {}
 
        public DbSet<Produto> Produtos { get; set; }
+       public DbSet<Cliente> Clientes { get; set; }
     }
 }
