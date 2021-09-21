@@ -36,6 +36,8 @@ namespace Loja.API
             );
 
             services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IMarcasService, MarcasService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
